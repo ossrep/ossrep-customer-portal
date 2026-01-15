@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-index',
   standalone: true,
   template: `
     <div class="container py-5">
@@ -15,22 +14,14 @@ import { AuthService } from '../../services/auth.service';
             view usage, pay bills, and more.
           </p>
           
-          @if (!authService.isAuthenticated()) {
-            <div class="d-grid gap-3 d-md-flex justify-content-md-center">
-              <button class="btn btn-primary btn-lg px-4" (click)="authService.login()">
-                Sign In
-              </button>
-              <button class="btn btn-outline-secondary btn-lg px-4">
-                Learn More
-              </button>
-            </div>
-          } @else {
-            <div class="d-grid gap-3 d-md-flex justify-content-md-center">
-              <button class="btn btn-primary btn-lg px-4" (click)="goToDashboard()">
-                Go to Dashboard
-              </button>
-            </div>
-          }
+          <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+            <button class="btn btn-primary btn-lg px-4" (click)="authService.login()">
+              Sign In
+            </button>
+            <button class="btn btn-outline-secondary btn-lg px-4">
+              Learn More
+            </button>
+          </div>
         </div>
       </div>
 
@@ -68,11 +59,6 @@ import { AuthService } from '../../services/auth.service';
     </div>
   `
 })
-export class HomePage {
+export class IndexPage {
   authService = inject(AuthService);
-  private router = inject(Router);
-
-  goToDashboard(): void {
-    this.router.navigate(['/dashboard']);
-  }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a class="navbar-brand" routerLink="/">
+        <a class="navbar-brand" [routerLink]="brandLink()">
           <strong>ossrep</strong>
         </a>
         <button
@@ -24,11 +24,6 @@ import { AuthService } from '../services/auth.service';
         </button>
         <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="navbarNav">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                Home
-              </a>
-            </li>
             @if (authService.isAuthenticated()) {
               <li class="nav-item">
                 <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
@@ -65,4 +60,6 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent {
   authService = inject(AuthService);
   isCollapsed = true;
+
+  brandLink = computed(() => this.authService.isAuthenticated() ? '/dashboard' : '/');
 }

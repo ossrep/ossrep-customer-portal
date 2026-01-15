@@ -30,6 +30,11 @@ import { AuthService } from '../services/auth.service';
                   Dashboard
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/account" routerLinkActive="active">
+                  Account
+                </a>
+              </li>
             }
           </ul>
           <ul class="navbar-nav">

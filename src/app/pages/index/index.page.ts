@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
         <div class="col-lg-8 text-center">
           <h1 class="display-4 fw-bold mb-4">Welcome to ossrep</h1>
           <p class="lead text-muted mb-5">
-            Open Source Retail Energy Platform - Manage your energy account, 
+            Open Source Retail Electricity Platform - Manage your electricity account, 
             view usage, pay bills, and more.
           </p>
           
@@ -34,7 +34,7 @@ import { AuthService } from '../../services/auth.service';
             </svg>
           </div>
           <h3>Track Usage</h3>
-          <p class="text-muted">Monitor your energy consumption with detailed charts and insights.</p>
+          <p class="text-muted">Monitor your electricity consumption with detailed charts and insights.</p>
         </div>
         <div class="col-md-4 text-center mb-4">
           <div class="feature-icon bg-primary bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 4rem; height: 4rem;">

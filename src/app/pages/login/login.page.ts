@@ -28,7 +28,7 @@ import { AuthService } from '../../services/auth.service';
                   </div>
                 }
                 <p class="text-muted text-center mb-4">
-                  Sign in to access your energy account and manage your services.
+                  Sign in to access your electricity account and manage your services.
                 </p>
                 <div class="d-grid">
                   <button class="btn btn-primary btn-lg" (click)="authService.login()">

@@ -6,23 +6,55 @@ Self-service web application for OSSREP customers built with Angular.
 
 ### Customer Enrollment (Start Service)
 
-A 6-step guided enrollment flow for new customers:
+A 7-step guided enrollment flow for new customers:
 
 1. **Customer Type** - Select individual (residential) or business (commercial)
 2. **Contact Information** - Personal details for individuals, business details and primary contact for businesses
-3. **Service Address** - The premise address where electricity service is needed
-4. **Meter Selection** - Select one or more meters at the service address to enroll
-5. **Mailing Address** - Billing address (can be same as service address)
-6. **Review & Terms** - Summary of enrollment details and terms acceptance
+3. **Service Address & Start Date** - The premise address and requested service start date
+4. **Plan Selection** - Choose an electricity plan based on rate, term, and features
+5. **Meter Selection** - Select one or more meters at the service address to enroll
+6. **Mailing Address** - Billing address (can be same as service address)
+7. **Review & Terms** - Summary of enrollment details, contract dates, and terms acceptance
+8. **Confirmation Page** - Enrollment complete with full summary and next steps
+
+#### Plan Selection
+
+After entering a service address, available plans for that location are displayed with:
+
+- Rate per kWh and base monthly charge
+- Contract term length (month-to-month to 24 months)
+- Renewable energy percentage (wind, solar)
+- Early termination fees (if applicable)
+- Links to plan documents (EFL, TOS, YRAC)
 
 #### Meter Selection
 
-After entering a service address, the system looks up available meters at that premise:
+After selecting a plan, the system looks up available meters at the premise:
 
 - Individual customers typically see a single meter
 - Business customers may see multiple meters (e.g., separate meters for different buildings or units)
 - Customers must select at least one meter to proceed
 - Selected meters are displayed in the enrollment summary
+
+#### Contract Details
+
+Upon completing enrollment, a contract is created with:
+
+- **Start Date** - Customer-requested service start date
+- **End Date** - Calculated from start date + plan term length
+- **Plan** - The selected electricity plan
+- **Accounts** - The account(s) covered by the contract
+- **Early Termination Fee** - Fee if cancelled before end date (from plan)
+
+#### Confirmation Page
+
+After successful enrollment submission, customers are redirected to a confirmation page showing:
+
+- Unique confirmation number
+- Complete enrollment summary (customer info, address, plan, contract dates, meters)
+- "What Happens Next" timeline (confirmation email, service activation, first bill)
+- Print summary option for records
+- Link to sign in to their new account
 
 ### Dashboard
 

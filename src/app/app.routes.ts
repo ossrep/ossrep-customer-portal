@@ -17,6 +17,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/signup/signup.page').then(m => m.SignupPage)
   },
   {
+    path: 'signup/confirmation',
+    loadComponent: () => import('./pages/signup/enrollment-confirmation.page').then(m => m.EnrollmentConfirmationPage)
+  },
+  {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then(m => m.DashboardPage),
     canActivate: [authGuard]

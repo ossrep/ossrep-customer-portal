@@ -13,10 +13,13 @@ export class AuthService {
   private _isAuthenticated = signal(false);
   private _userProfile = signal<UserProfile | null>(null);
   private _isLoading = signal(true);
+  private _initError = signal<string | null>(null);
+  private discoveryLoaded = false;
 
   readonly isAuthenticated = this._isAuthenticated.asReadonly();
   readonly userProfile = this._userProfile.asReadonly();
   readonly isLoading = this._isLoading.asReadonly();
+  readonly initError = this._initError.asReadonly();
 
   readonly userDisplayName = computed(() => {
     const profile = this._userProfile();
@@ -48,10 +51,13 @@ export class AuthService {
     });
 
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      this.discoveryLoaded = true;
+      this._initError.set(null);
       this.updateAuthState();
       this._isLoading.set(false);
     }).catch(error => {
       console.error('OIDC initialization failed:', error);
+      this._initError.set('Unable to connect to authentication server. Please ensure Keycloak is running.');
       this._isLoading.set(false);
     });
   }
@@ -77,7 +83,18 @@ export class AuthService {
     }
   }
 
-  login(): void {
+  async login(): Promise<void> {
+    if (!this.discoveryLoaded) {
+      try {
+        await this.oauthService.loadDiscoveryDocument();
+        this.discoveryLoaded = true;
+        this._initError.set(null);
+      } catch (error) {
+        console.error('Failed to load discovery document:', error);
+        this._initError.set('Unable to connect to authentication server. Please ensure Keycloak is running and the realm is configured.');
+        return;
+      }
+    }
     this.oauthService.initCodeFlow();
   }
 

@@ -21,6 +21,12 @@ import { AuthService } from '../../services/auth.service';
                   <p class="mt-3 text-muted">Checking authentication...</p>
                 </div>
               } @else {
+                @if (authService.initError()) {
+                  <div class="alert alert-danger" role="alert">
+                    <strong>Connection Error</strong>
+                    <p class="mb-0 small">{{ authService.initError() }}</p>
+                  </div>
+                }
                 <p class="text-muted text-center mb-4">
                   Sign in to access your energy account and manage your services.
                 </p>

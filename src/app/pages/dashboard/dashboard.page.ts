@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe, TitleCasePipe } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, CurrencyPipe, DatePipe, DecimalPipe],
+  imports: [RouterLink, CurrencyPipe, DatePipe, DecimalPipe, TitleCasePipe],
   template: `
     <div class="container py-4">
       <div class="row mb-4">

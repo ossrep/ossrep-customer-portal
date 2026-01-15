@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-index',
   standalone: true,
+  imports: [RouterLink],
   template: `
     <div class="container py-5">
       <div class="row justify-content-center">
@@ -14,14 +16,17 @@ import { AuthService } from '../../services/auth.service';
             view usage, pay bills, and more.
           </p>
           
-          <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+          <div class="d-grid gap-3 d-md-flex justify-content-md-center mb-4">
             <button class="btn btn-primary btn-lg px-4" (click)="authService.login()">
               Sign In
             </button>
-            <button class="btn btn-outline-secondary btn-lg px-4">
-              Learn More
-            </button>
+            <a routerLink="/signup" class="btn btn-success btn-lg px-4">
+              Start Service
+            </a>
           </div>
+          <p class="text-muted">
+            New customer? <a routerLink="/signup" class="text-decoration-none">Enroll for electricity service</a>
+          </p>
         </div>
       </div>
 

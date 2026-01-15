@@ -1,59 +1,102 @@
-# OssrepCustomerPortal
+# OSSREP Customer Portal
+
+Self-service web application for OSSREP customers built with Angular.
+
+## Features
+
+### Customer Enrollment (Start Service)
+
+A 6-step guided enrollment flow for new customers:
+
+1. **Customer Type** - Select individual (residential) or business (commercial)
+2. **Contact Information** - Personal details for individuals, business details and primary contact for businesses
+3. **Service Address** - The premise address where electricity service is needed
+4. **Meter Selection** - Select one or more meters at the service address to enroll
+5. **Mailing Address** - Billing address (can be same as service address)
+6. **Review & Terms** - Summary of enrollment details and terms acceptance
+
+#### Meter Selection
+
+After entering a service address, the system looks up available meters at that premise:
+
+- Individual customers typically see a single meter
+- Business customers may see multiple meters (e.g., separate meters for different buildings or units)
+- Customers must select at least one meter to proceed
+- Selected meters are displayed in the enrollment summary
+
+### Dashboard
+
+Aggregated view across all customer accounts:
+
+- Total balance due with next due date
+- Account, premise, and meter counts
+- Usage summary by meter type
+- Quick access to billing and payment
+
+### Account Management
+
+- View all accounts with current balances
+- Premises with address details
+- Meter information and reading history
+
+### Profile & Preferences
+
+- Update contact information
+- Manage mailing address
+- Set communication preferences (email, mail, or both)
+- Configure notification settings
+
+## Development
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
 
-## Development server
+### Development Server
 
-To start a local development server, run:
+To start a local development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`. The application automatically reloads on source file changes.
 
-## Code scaffolding
+### Code Scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Generate new components:
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+For available schematics:
 
 ```bash
 ng generate --help
 ```
 
-## Building
-
-To build the project run:
+### Building
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts are stored in the `dist/` directory. Production builds are optimized for performance.
 
-## Running unit tests
+### Running Tests
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Unit tests with [Vitest](https://vitest.dev/):
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+End-to-end tests:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [OSSREP Documentation](https://ossrep.github.io)

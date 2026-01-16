@@ -78,19 +78,76 @@ Aggregated view across all customer accounts:
 - Set communication preferences (email, mail, or both)
 - Configure notification settings
 
+## Architecture
+
+### Backend Integration
+
+The portal integrates with the `ossrep-customer-service` backend API:
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/customer` | Current authenticated customer profile |
+| `GET /api/accounts` | Customer's accounts with premises and meters |
+| `GET /api/contracts` | Customer's contracts |
+| `GET /api/plans` | Available electricity plans (public) |
+
+### Authentication
+
+- OIDC authentication via Keycloak
+- Bearer token automatically added to API requests via HTTP interceptor
+- Customer data loaded after successful authentication
+
+### Environment Configuration
+
+| Variable | Development | Production |
+|----------|-------------|------------|
+| `apiUrl` | `http://localhost:8080/api` | `https://api.ossrep.io/api` |
+| `oidc.issuer` | `http://localhost:8180/realms/ossrep` | `https://auth.ossrep.io/realms/ossrep` |
+| `oidc.clientId` | `ossrep-customer-portal` | `ossrep-customer-portal` |
+
 ## Development
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
 
-### Development Server
+### Prerequisites
 
-To start a local development server:
+- Node.js (Latest LTS)
+- Angular CLI (`npm install -g @angular/cli`)
+- Running backend services (see below)
+
+### Starting Backend Services
+
+Start the required infrastructure with podman-compose:
 
 ```bash
+cd ../ossrep.github.io
+podman-compose up -d
+```
+
+This starts PostgreSQL, Keycloak, and Kafka. Then start the customer service:
+
+```bash
+cd ../ossrep-customer-service
+./mvnw quarkus:dev
+```
+
+### Development Server
+
+To start the portal:
+
+```bash
+npm install
 ng serve
 ```
 
 Navigate to `http://localhost:4200/`. The application automatically reloads on source file changes.
+
+### Test Users
+
+| Username | Password | Type |
+|----------|----------|------|
+| alice | password | Individual customer |
+| bob | password | Individual customer |
 
 ### Code Scaffolding
 
@@ -128,7 +185,30 @@ End-to-end tests:
 ng e2e
 ```
 
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── guards/              # Route guards (auth, guest)
+│   ├── models/              # TypeScript interfaces
+│   ├── pages/               # Page components
+│   │   ├── dashboard/       # Main dashboard
+│   │   ├── account/         # Account management
+│   │   ├── login/           # Login page
+│   │   ├── signup/          # Enrollment flow
+│   │   └── index/           # Landing page
+│   ├── services/            # Angular services
+│   │   ├── auth.service.ts       # OIDC authentication
+│   │   ├── auth.interceptor.ts   # Bearer token injection
+│   │   └── customer.service.ts   # Customer data API
+│   └── shared/              # Shared components
+├── environments/            # Environment configuration
+└── styles.scss              # Global styles
+```
+
 ## Additional Resources
 
 - [Angular CLI Documentation](https://angular.dev/tools/cli)
 - [OSSREP Documentation](https://ossrep.github.io)
+- [Customer Service API](../ossrep-customer-service/README.md)

@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService, AuthConfig } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment';
+import { CustomerService } from './customer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   private oauthService = inject(OAuthService);
   private router = inject(Router);
+  private customerService = inject(CustomerService);
 
   private _isAuthenticated = signal(false);
   private _userProfile = signal<UserProfile | null>(null);
@@ -99,6 +101,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.customerService.clearData();
     this.oauthService.logOut();
     this._isAuthenticated.set(false);
     this._userProfile.set(null);

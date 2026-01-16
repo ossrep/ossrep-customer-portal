@@ -22,15 +22,11 @@ import { CustomerService } from '../../services/customer.service';
                 }
               </p>
               @if (customerService.customer(); as customer) {
-                @if (customer.type === 'business') {
+                @if (customer.type === 'BUSINESS') {
                   <p class="text-muted mb-0">{{ customer.businessName }}</p>
                 }
               }
             </div>
-            <!-- Demo toggle - remove in production -->
-            <button class="btn btn-sm btn-outline-secondary" (click)="customerService.toggleCustomerType()">
-              Switch to {{ customerService.isBusinessCustomer() ? 'Individual' : 'Business' }} View
-            </button>
           </div>
         </div>
       </div>
@@ -40,6 +36,11 @@ import { CustomerService } from '../../services/customer.service';
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
+        </div>
+      } @else if (customerService.error(); as error) {
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">Error Loading Data</h5>
+          <p class="mb-0">{{ error }}</p>
         </div>
       } @else if (customerService.customerSummary(); as summary) {
         <!-- Summary Cards -->
@@ -113,7 +114,7 @@ import { CustomerService } from '../../services/customer.service';
 
         <!-- Accounts List (for business) or Account Details (for individual) -->
         @if (customerService.customer(); as customer) {
-          @if (customer.type === 'business') {
+          @if (customer.type === 'BUSINESS') {
             <!-- Business: Show all accounts -->
             <div class="card mb-4">
               <div class="card-header">
@@ -338,10 +339,10 @@ export class DashboardPage {
   }
 
   getStatusBadgeClass(status: string): string {
-    switch (status) {
-      case 'active': return 'bg-success';
-      case 'inactive': return 'bg-secondary';
-      case 'pending': return 'bg-warning text-dark';
+    switch (status.toUpperCase()) {
+      case 'ACTIVE': return 'bg-success';
+      case 'INACTIVE': return 'bg-secondary';
+      case 'PENDING': return 'bg-warning text-dark';
       default: return 'bg-secondary';
     }
   }
@@ -357,15 +358,15 @@ export class DashboardPage {
   }
 
   getMeterTypeBadgeClass(type: string): string {
-    switch (type) {
-      case 'electric': return 'bg-warning text-dark';
+    switch (type.toUpperCase()) {
+      case 'ELECTRIC': return 'bg-warning text-dark';
       default: return 'bg-secondary';
     }
   }
 
   getMeterTypeIcon(type: string): string {
-    switch (type) {
-      case 'electric': return '⚡';
+    switch (type.toUpperCase()) {
+      case 'ELECTRIC': return '⚡';
       default: return '📊';
     }
   }

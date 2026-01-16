@@ -24,6 +24,11 @@ import { Account, Premise, Meter } from '../../models/customer.model';
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
+      } @else if (customerService.error(); as error) {
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">Error Loading Data</h5>
+          <p class="mb-0">{{ error }}</p>
+        </div>
       } @else if (customerService.customer(); as customer) {
         <!-- Navigation Tabs -->
         <ul class="nav nav-tabs mb-4">
@@ -132,7 +137,7 @@ import { Account, Premise, Meter } from '../../models/customer.model';
                                     </span>
                                   </td>
                                   <td>
-                                    <span class="badge" [class]="meter.status === 'active' ? 'bg-success' : 'bg-secondary'">
+                                    <span class="badge" [class]="meter.status === 'ACTIVE' ? 'bg-success' : 'bg-secondary'">
                                       {{ meter.status | titlecase }}
                                     </span>
                                   </td>
@@ -165,7 +170,7 @@ import { Account, Premise, Meter } from '../../models/customer.model';
               <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <h5 class="card-title mb-0">
-                    @if (customer.type === 'business') {
+                    @if (customer.type === 'BUSINESS') {
                       Business Information
                     } @else {
                       Personal Information
@@ -180,7 +185,7 @@ import { Account, Premise, Meter } from '../../models/customer.model';
                 <div class="card-body">
                   @if (editingProfile()) {
                     <form (ngSubmit)="saveProfile()">
-                      @if (customer.type === 'business') {
+                      @if (customer.type === 'BUSINESS') {
                         <div class="mb-3">
                           <label for="businessName" class="form-label">Business Name</label>
                           <input type="text" class="form-control" id="businessName" 
@@ -217,7 +222,7 @@ import { Account, Premise, Meter } from '../../models/customer.model';
                     </form>
                   } @else {
                     <dl class="mb-0">
-                      @if (customer.type === 'business') {
+                      @if (customer.type === 'BUSINESS') {
                         <dt>Business Name</dt>
                         <dd class="text-muted">{{ customer.businessName }}</dd>
                       } @else {
@@ -582,24 +587,24 @@ export class AccountPage {
 
   // Helper methods
   getStatusBadgeClass(status: string): string {
-    switch (status) {
-      case 'active': return 'bg-success';
-      case 'inactive': return 'bg-secondary';
-      case 'pending': return 'bg-warning text-dark';
+    switch (status.toUpperCase()) {
+      case 'ACTIVE': return 'bg-success';
+      case 'INACTIVE': return 'bg-secondary';
+      case 'PENDING': return 'bg-warning text-dark';
       default: return 'bg-secondary';
     }
   }
 
   getMeterTypeBadgeClass(type: string): string {
-    switch (type) {
-      case 'electric': return 'bg-warning text-dark';
+    switch (type.toUpperCase()) {
+      case 'ELECTRIC': return 'bg-warning text-dark';
       default: return 'bg-secondary';
     }
   }
 
   getMeterTypeIcon(type: string): string {
-    switch (type) {
-      case 'electric': return '⚡';
+    switch (type.toUpperCase()) {
+      case 'ELECTRIC': return '⚡';
       default: return '📊';
     }
   }

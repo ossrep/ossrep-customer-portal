@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  apiUrl: 'https://api.ossrep.io/api',
   oidc: {
     issuer: 'https://auth.ossrep.io/realms/ossrep',
     clientId: 'ossrep-customer-portal',

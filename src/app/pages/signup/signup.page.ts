@@ -134,9 +134,9 @@ interface SignupForm {
                   <div class="row g-3">
                     <div class="col-md-6">
                       <div class="card h-100 cursor-pointer"
-                           [class.border-primary]="form.customerType === 'individual'"
-                           [class.border-2]="form.customerType === 'individual'"
-                           (click)="form.customerType = 'individual'">
+                           [class.border-primary]="form.customerType === 'INDIVIDUAL'"
+                           [class.border-2]="form.customerType === 'INDIVIDUAL'"
+                           (click)="form.customerType = 'INDIVIDUAL'">
                         <div class="card-body text-center py-4">
                           <div class="mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
@@ -147,16 +147,16 @@ interface SignupForm {
                           <p class="card-text text-muted small">For homeowners and renters setting up personal electricity service</p>
                           <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="radio" name="customerType" 
-                                   [(ngModel)]="form.customerType" value="individual">
+                                   [(ngModel)]="form.customerType" value="INDIVIDUAL">
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="card h-100 cursor-pointer"
-                           [class.border-primary]="form.customerType === 'business'"
-                           [class.border-2]="form.customerType === 'business'"
-                           (click)="form.customerType = 'business'">
+                           [class.border-primary]="form.customerType === 'BUSINESS'"
+                           [class.border-2]="form.customerType === 'BUSINESS'"
+                           (click)="form.customerType = 'BUSINESS'">
                         <div class="card-body text-center py-4">
                           <div class="mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
@@ -168,7 +168,7 @@ interface SignupForm {
                           <p class="card-text text-muted small">For businesses, organizations, and commercial properties</p>
                           <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="radio" name="customerType" 
-                                   [(ngModel)]="form.customerType" value="business">
+                                   [(ngModel)]="form.customerType" value="BUSINESS">
                           </div>
                         </div>
                       </div>
@@ -178,7 +178,7 @@ interface SignupForm {
 
                 <!-- Step 2: Contact Information -->
                 @if (currentStep() === 2) {
-                  @if (form.customerType === 'individual') {
+                  @if (form.customerType === 'INDIVIDUAL') {
                     <h4 class="mb-4">Your Information</h4>
                     <div class="row g-3">
                       <div class="col-md-6">
@@ -546,7 +546,7 @@ interface SignupForm {
                         <div class="col-md-6">
                           <strong>Customer:</strong><br>
                           <span class="text-muted">
-                            @if (form.customerType === 'individual') {
+                            @if (form.customerType === 'INDIVIDUAL') {
                               {{ form.firstName }} {{ form.lastName }}
                             } @else {
                               {{ form.businessName }}
@@ -750,7 +750,7 @@ export class SignupPage {
       case 1:
         return this.form.customerType !== null;
       case 2:
-        if (this.form.customerType === 'individual') {
+        if (this.form.customerType === 'INDIVIDUAL') {
           return !!(this.form.firstName && this.form.lastName && this.form.email && this.form.phone);
         } else {
           return !!(this.form.businessName && this.form.businessType && this.form.taxId && 
@@ -875,7 +875,7 @@ export class SignupPage {
         { meterId: 3001, meterNumber: 'E-12345678', type: 'electric', status: 'available', selected: false }
       ];
 
-      if (this.form.customerType === 'business') {
+      if (this.form.customerType === 'BUSINESS') {
         mockMeters.push(
           { meterId: 3002, meterNumber: 'E-23456789', type: 'electric', status: 'available', selected: false },
           { meterId: 3003, meterNumber: 'E-34567890', type: 'electric', status: 'available', selected: false }
@@ -918,7 +918,7 @@ export class SignupPage {
       // Build enrollment confirmation data
       const enrollmentData = {
         customerType: this.form.customerType,
-        customerName: this.form.customerType === 'individual' 
+        customerName: this.form.customerType === 'INDIVIDUAL' 
           ? `${this.form.firstName} ${this.form.lastName}`
           : this.form.businessName,
         email: this.form.email,
